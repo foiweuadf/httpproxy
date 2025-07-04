@@ -74,7 +74,11 @@ const ALLOWED_PROTOCOLS = ["http", "https"];
 
 async function doproxy(req) {
   const url = new URL(req.url);
-  const parts = url.pathname.split("/").filter(Boolean);
+  
+  const decodedPath = decodeURIComponent(url.pathname);
+  const parts = decodedPath.split("/").filter(Boolean);
+    
+  // const parts = url.pathname.split("/").filter(Boolean);
   
   if (parts.length < 2) {
     return new Response("Invalid path format", { status: 400 });
