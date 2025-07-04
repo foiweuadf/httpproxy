@@ -65,6 +65,9 @@ async function rewriteUrls(content, baseUrl) {
       if (path.startsWith('http') || path.startsWith('//')) {
         return match; // 跳过绝对路径
       }
+      if (path.startsWith("data:image"){
+        return match;
+      }
       return `${attr}="${baseUrl}/${path}"`;
     }
   );
@@ -74,11 +77,7 @@ const ALLOWED_PROTOCOLS = ["http", "https"];
 
 async function doproxy(req) {
   const url = new URL(req.url);
-  
-  const decodedPath = decodeURIComponent(url.pathname);
-  const parts = decodedPath.split("/").filter(Boolean);
-    
-  // const parts = url.pathname.split("/").filter(Boolean);
+  const parts = url.pathname.split("/").filter(Boolean);
   
   if (parts.length < 2) {
     return new Response("Invalid path format", { status: 400 });
