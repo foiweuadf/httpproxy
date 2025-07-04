@@ -65,7 +65,7 @@ async function rewriteUrls(content, baseUrl) {
       if (path.startsWith('http') || path.startsWith('//')) {
         return match; // 跳过绝对路径
       }
-      if (path.startsWith("data:image"){
+      if (path.startsWith("data:image")){
         return match;
       }
       return `${attr}="${baseUrl}/${path}"`;
